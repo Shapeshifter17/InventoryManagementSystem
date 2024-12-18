@@ -5,12 +5,12 @@ public class SqlConnector: ISqlConnector{
     string _connectionString { get; set; } = string.Empty;
     private readonly IConfiguration _config;
     private ILogger _logger;
-    public SqlConnector(string someConnectionStr, IConfiguration config, ILogger<SqlConnector> logger){
+    public SqlConnector( IConfiguration config, ILogger<SqlConnector> logger){
         _logger = logger;
         _config = config;
         
-        _logger.LogInformation("Constructor initialised for SqlConnector with values" + someConnectionStr);
-        Connect(_connectionString);
+        _logger.LogInformation("Constructor initialised for SqlConnector with values");
+        //Connect(_connectionString);
     }
 
     private void Connect(string connectionString)
@@ -18,8 +18,8 @@ public class SqlConnector: ISqlConnector{
         try
         {
             
-            Console.WriteLine("Attempting to Connect...");
-       //Attempt to connect to SQL 
+            _logger.LogInformation("Attempting to Connect...");
+       
         }
         catch (System.Exception)
         {
