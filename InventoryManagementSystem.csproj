@@ -7,4 +7,10 @@
     <UserSecretsId>7805712d-6cbe-468e-bf0d-eee6e416e4d2</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="4.2.1-dev-02337" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+  </ItemGroup>
+
 </Project>

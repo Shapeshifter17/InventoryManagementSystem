@@ -1,12 +1,26 @@
 using InventoryManagementSystem.Components;
+using Serilog;
+
+var loggerConfiguration = new LoggerConfiguration()
+    .WriteTo.Console();
+
+Log.Logger = loggerConfiguration.CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+// builder.Services.AddRazorComponents(options => 
+//     options.DetailedErrors = builder.Environment.IsDevelopment());
 
-builder.Services.AddSingleton<IConfiguration,Configuration>();
+builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .AddCommandLine(args)
+    .AddUserSecrets<Program>()
+    .AddEnvironmentVariables();
+
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+
+builder.Services.AddSingleton<SqlConfiguration>();
 builder.Services.AddSingleton<ISqlConnector,SqlConnector>();
 
 var app = builder.Build();
@@ -23,6 +37,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
